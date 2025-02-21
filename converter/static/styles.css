@@ -1,0 +1,166 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar styling */
+nav {
+    background-color: #bbdff5;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #231f21;
+}
+
+/* Container for centering the converter */
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Form container styling */
+form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-left: 37%;
+
+}
+
+/* Drop area styling */
+#dropArea {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+#dropArea.highlight {
+    border-color: #6c5ce7;
+    background-color: #e6e6fa;
+}
+
+#dropArea.file-ready {
+    border-color: #4CAF50;
+    background-color: #e8f5e9;
+}
+
+#dropText {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Button styling */
+button {
+    background-color: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #5a4fcf;
+}
+
+/* Select dropdown styling */
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #080e12;
+    background-color: rgb(227, 227, 227);
+    margin-bottom: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Animation for file ready state */
+@keyframes fileReady {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#dropArea.file-ready {
+    animation: fileReady 0.5s ease;
+}
+
+/* Styling for the h3 at the bottom */
+h3 {
+    text-align: center;
+    padding: 20px;
+    background-color: #5cb2e7;
+    color: white;
+    margin: 0;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    background-color: #6454d6;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    clip-path: inset(0 39% 0 37%);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav a {
+        margin: 5px 0;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    form {
+        padding: 1rem;
+    }
+
+    #dropText {
+        font-size: 14px;
+    }
+
+    button, select {
+        font-size: 14px;
+    }
+}

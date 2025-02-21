@@ -1,0 +1,2 @@
+i = 'gugugugugaga'
+print(i)

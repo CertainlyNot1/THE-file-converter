@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %} Cool mega converter {% endblock %}</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    </head>
+    <body>
+        <h3>THE file converter that you'll only need when you dont have it.</h3>
+        <nav>
+            <a href="{{url_for('coweb')}}">Main page</a>
+            <a href="{{url_for('vid_to_audio')}}">Video to mp3(supports mp4 and mp5 mini also tec-9)</a>
+            <a href="{{url_for('image_conversion')}}">Png to jpg and back</a>
+            <a href="{{url_for('pdf_to_word')}}">Pdf to word and back</a>
+            <a href="{{url_for('txt_to_py')}}">txt to code</a>
+            <a href="{{url_for('ppt_to_pdf')}}">ppt to pdf and back</a>
+            <a href="{{url_for('currency_converter')}}">convert currencies (new!!!)</a>
+        </nav>
+    </body>
+    <main>{%block content%} {%endblock%}</main>
+</html>

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}The ultimate mega file converter{% endblock %}
+
+{% block content %}
+<h2>Hello to our ultimate file converter, we worked really hard to bring this idea to life with our team of 25 people (special thx to Alex)</h2>
+
+<div id="timezones">
+    <p style="font-size: 1.2em; font-weight: bold; color: #333;">Timezones</p>
+    <div style="width: 30%; height: 414px; overflow-y: auto; margin-top: 20px; border: 2px solid #6A5ACD; float: right;">
+        <table style="width: 100%; border-collapse: collapse; background-color: #e0e0e0;">
+            <thead>
+                <tr style="background-color: #6A5ACD;">
+                    <th style="padding: 20px; border: 1px solid #6A5ACD; text-align: left; color: white; font-weight: bold;">Timezone</th>
+                    <th style="padding: 20px; border: 1px solid #6A5ACD; text-align: left; color: white; font-weight: bold;">Time</th>
+                </tr>
+            </thead>
+            <tbody id="timezone-body">
+                <!-- Timezone data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="rates">
+    <p style="font-size: 1.2em; font-weight: bold; color: #333;">Currency exchange rates</p>
+    <div style="width: 30%; height: 414px; overflow-y: auto; margin-top: 20px; border: 2px solid #6A5ACD;">
+        <table style="width: 100%; border-collapse: collapse; background-color: #e0e0e0;">
+            <thead>
+                <tr style="background-color: #6A5ACD;">
+                    <th style="padding: 20px; border: 1px solid #6A5ACD; text-align: left; color: white; font-weight: bold;">Currency</th>
+                    <th style="padding: 20px; border: 1px solid #6A5ACD; text-align: left; color: white; font-weight: bold;">Rate</th>
+                </tr>
+            </thead>
+            <tbody id="rates-body">
+                {% for curry, rtt in rates.items() %}
+                <tr style="border-bottom: 1px solid #6A5ACD;">
+                    <td style="padding: 20px; border: 1px solid #6A5ACD; font-weight: bold; color: #333;">{{ curry }}</td>
+                    <td style="padding: 20px; border: 1px solid #6A5ACD; font-weight: bold; color: #333;">{{ rtt }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Function to update timezones
+    async function THYTIME() {
+        const response = await fetch('/GetTimeUhH');
+        const timedata = await response.json();
+        const tbody = document.getElementById('timezone-body');
+        tbody.innerHTML = '';
+        for (const [Timezone, time] of Object.entries(timedata)) {
+            const row = document.createElement('tr');
+            row.style.borderBottom = "1px solid #6A5ACD";
+            row.innerHTML = `<td style="padding: 20px; border: 1px solid #6A5ACD; font-weight: bold; color: #333;">${Timezone}</td>
+                             <td style="padding: 20px; border: 1px solid #6A5ACD; font-weight: bold; color: #333;">${time}</td>`;
+            tbody.appendChild(row);
+        }
+    }
+
+    // Function to update currency rates
+    async function updateRates() {
+        const response = await fetch('/GetRates');
+        const rates = await response.json();
+        const tbody = document.getElementById('rates-body');
+        tbody.innerHTML = '';
+        for (const [currency, rate] of Object.entries(rates)) {
+            const row = document.createElement('tr');
+            row.style.borderBottom = "1px solid #6A5ACD";
+            row.innerHTML = `<td style="padding: 20px; border: 1px solid #6A5ACD; font-weight: bold; color: #333;">${currency}</td>
+                             <td style="padding: 20px; border: 1px solid #6A5ACD; font-weight: bold; color: #333;">${rate}</td>`;
+            tbody.appendChild(row);
+        }
+    }
+
+    // Set intervals for updates
+    setInterval(THYTIME, 1000);
+    setInterval(updateRates, 20000); // Update rates every 20 seconds
+
+    // Initial calls
+    window.onload = () => {
+        THYTIME();
+        updateRates();
+    };
+</script>
+{% endblock %}

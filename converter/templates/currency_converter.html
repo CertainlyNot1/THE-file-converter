@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Currency Converter{% endblock %}
+
+{% block content %}
+<h2>Currency Converter</h2>
+
+<form method="POST">
+    <label for="from_currency">From:</label>
+    <select name="from_currency" id="from_currency" required>
+        {% for code, name in currencies.items() %}
+        <option value="{{ code }}">{{ code }} - {{ name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="to_currency">To:</label>
+    <select name="to_currency" id="to_currency" required>
+        {% for code, name in currencies.items() %}
+        <option value="{{ code }}">{{ code }} - {{ name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="amount">Amount:</label>
+    <input type="number" name="amount" id="amount" placeholder="Amount" step="0.01" required>
+{% if result %}
+<p>Converted Amount: <strong>{{ result }}</strong></p>
+{% endif %}
+
+    <button type="submit">Convert</button>
+
+
+
+</form>
+
+
+{% endblock %}

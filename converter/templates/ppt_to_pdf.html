@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}pdf to ppt and back{% endblock %}
+
+{% block content %}
+<h2>Convert pdf to ppt & back</h2>
+<form method="post" enctype="multipart/form-data" id="uploadForm">
+    <div id="dropArea">
+        <p id="dropText">Drag & drop your file here or click to upload!</p>
+        <input type="file" name="file" id="file" style="display: none;">
+        
+    </div>
+        <select name="conversion_type">
+            <option value="pdf_to_ppt">pdf to ppt</option>
+
+            <option value="ppt_to_pdf">ppt to pdf</option>
+        </select>
+    <button type="submit">Give it a convert!</button>
+</form>
+
+<script>
+    // JavaScript for drag & drop functionality
+    const dropArea = document.getElementById('dropArea');
+    const fileInput = document.getElementById('file');
+    const dropText = document.getElementById('dropText');
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // Highlight drop area when file is dragged over
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => dropArea.classList.add('highlight'), false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, () => dropArea.classList.remove('highlight'), false);
+    });
+
+    // Handle dropped files
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+
+        if (files.length > 0) {
+            fileInput.files = files;
+            updateDropArea(files[0]); // Update the drop area with the file name
+        }
+    }
+
+    // Handle file input change
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            updateDropArea(fileInput.files[0]); // Update the drop area with the file name
+        }
+    });
+
+    // Update the drop area with the file name
+    function updateDropArea(file) {
+        dropText.textContent = `File ready: ${file.name}`;
+        dropArea.classList.add('file-ready');
+    }
+
+    // Handle click to upload
+    dropArea.addEventListener('click', () => fileInput.click());
+</script>
+
+<style>
+    /* Basic styling for the drop area */
+    #dropArea {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #dropArea.highlight {
+        border-color: #000;
+        background-color: #f0f0f0;
+    }
+
+    #dropArea.file-ready {
+        border-color: #4CAF50; /* Green border to indicate success */
+        background-color: #e8f5e9; /* Light green background */
+    }
+
+    #dropText {
+        margin: 0;
+        font-size: 16px;
+        color: #555;
+    }
+</style>
+{% endblock %}
